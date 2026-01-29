@@ -1,5 +1,6 @@
 import React from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import SendMessage from './components/SendMessage';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
         <ConnectButton />
       </header>
       <main>
-        {/* The rest of the app will go here */}
+        <SendMessage />
       </main>
     </>
   );
