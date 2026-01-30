@@ -4,9 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blockchain Chat</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body, #root { height: 100%; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+            background: #fff;
+            color: #000;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.22); }
+        input:focus { outline: none; border-color: #33A1FD !important; box-shadow: 0 0 0 3px rgba(51,161,253,0.12) !important; }
+        input::placeholder { color: #8E8E93; }
+        input { transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+        button { transition: opacity 0.15s ease; }
+        button:disabled { cursor: not-allowed; }
+    </style>
 </head>
 <body>
     <div id="root"></div>
-    <script src="/bundle.js" defer></script>
+    <script type="module" src="../src/index.tsx"></script>
 </body>
 </html>

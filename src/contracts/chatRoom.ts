@@ -1,5 +1,10 @@
-// src/contracts/chatRoom.ts
-export const CHAT_ROOM_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000";
+const address = process.env.PUBLIC_CHAT_ROOM_CONTRACT_ADDRESS;
+
+if (!address) {
+  throw new Error("Missing PUBLIC_CHAT_ROOM_CONTRACT_ADDRESS environment variable");
+}
+
+export const CHAT_ROOM_CONTRACT_ADDRESS = address as `0x${string}`;
 
 export const CHAT_ROOM_ABI = [
   {
@@ -16,28 +21,33 @@ export const CHAT_ROOM_ABI = [
     "type": "function"
   },
   {
-    "anonymous": false,
-    "inputs": [
+    "inputs": [],
+    "name": "getMessages",
+    "outputs": [
       {
-        "indexed": true,
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "message",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "timestamp",
-        "type": "uint256"
+        "components": [
+          {
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "message",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "timestamp",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct ChatRoom.Message[]",
+        "name": "",
+        "type": "tuple[]"
       }
     ],
-    "name": "MessageSent",
-    "type": "event"
+    "stateMutability": "view",
+    "type": "function"
   }
 ] as const;

@@ -19,42 +19,76 @@ function SendMessage() {
     }
   };
 
-  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
-    hash,
-  });
+  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash });
 
   useEffect(() => {
-    if (isConfirmed) {
-      setMessage('');
-    }
+    if (isConfirmed) setMessage('');
   }, [isConfirmed]);
 
-  const buttonText = isConfirming
-    ? "Sending..."
-    : isPending
-    ? "Confirm in wallet..."
-    : "Send";
+  const busy = isPending || isConfirming;
+  const canSend = isConnected && !busy && message.trim().length > 0;
+  const buttonLabel = isConfirming ? 'Confirming...' : isPending ? 'Confirm in wallet' : 'Send';
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '1rem', padding: '1rem' }}>
-      <input
-        type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        maxLength={280}
-        placeholder="Type your message..."
-        disabled={!isConnected || isPending || isConfirming}
-        style={{ flexGrow: 1, padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #ccc' }}
-      />
-      <button 
-        type="submit" 
-        disabled={!isConnected || isPending || isConfirming || !message.trim()}
-        style={{ padding: '0.5rem 1rem', borderRadius: '0.5rem', border: 'none', backgroundColor: '#007bff', color: 'white', cursor: 'pointer' }}
-      >
-        {buttonText}
-      </button>
-      {error && <p style={{ color: 'red' }}>Error: {error.shortMessage || error.message}</p>}
-    </form>
+    <div style={{
+      padding: '10px 16px 12px',
+      position: 'relative',
+    }}>
+      {error && (
+        <div style={{
+          position: 'absolute',
+          bottom: '100%',
+          left: 16,
+          right: 16,
+          marginBottom: 8,
+          background: '#FFF2F2',
+          border: '1px solid #FECACA',
+          borderRadius: 10,
+          padding: '8px 12px',
+          color: '#DC2626',
+          fontSize: '0.8125rem',
+          lineHeight: 1.4,
+        }}>
+          {error.shortMessage || error.message}
+        </div>
+      )}
+      <form onSubmit={handleSubmit} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          maxLength={280}
+          placeholder={isConnected ? 'Type a message...' : 'Connect wallet to chat'}
+          disabled={!isConnected || busy}
+          style={{
+            flex: 1,
+            padding: '9px 14px',
+            borderRadius: 20,
+            border: '1px solid #D1D1D6',
+            backgroundColor: '#FFF',
+            color: '#000',
+            fontSize: '0.9375rem',
+          }}
+        />
+        <button
+          type="submit"
+          disabled={!canSend}
+          style={{
+            padding: '9px 18px',
+            borderRadius: 20,
+            border: 'none',
+            backgroundColor: canSend ? '#33A1FD' : '#D1D1D6',
+            color: '#FFF',
+            fontSize: '0.875rem',
+            fontWeight: 600,
+            cursor: canSend ? 'pointer' : undefined,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {buttonLabel}
+        </button>
+      </form>
+    </div>
   );
 }
 
