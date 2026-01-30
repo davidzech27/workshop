@@ -4,22 +4,21 @@ A chat application where every message is a blockchain transaction on Base Sepol
 
 ## Quick Start
 
-1. Install [Bun](https://bun.sh) (JavaScript runtime and package manager):
+1. Install a browser wallet ([Rabby](https://rabby.io/) or [MetaMask](https://metamask.io/)) and [add Base Sepolia](https://revoke.cash/learn/wallets/add-network/base-sepolia) to it
+2. Get free testnet ETH from the [Coinbase faucet](https://portal.cdp.coinbase.com/products/faucet?token=ETH)
+3. Copy `.env.example` to `.env` and fill in the values (see the comments in the file for instructions):
+   ```
+   cp .env.example .env
+   ```
+4. Install [Bun](https://bun.sh) (JavaScript runtime and package manager):
    - **macOS / Linux**: `curl -fsSL https://bun.sh/install | bash`
    - **Windows**: `powershell -c "irm bun.sh/install.ps1 | iex"`
-2. Install a browser wallet ([Rabby](https://rabby.io/) or [MetaMask](https://metamask.io/)) and [add Base Sepolia](https://revoke.cash/learn/wallets/add-network/base-sepolia) to it
-3. Get free testnet ETH from the [Coinbase faucet](https://portal.cdp.coinbase.com/products/faucet?token=ETH)
-4. Get a free Alchemy API key at [dashboard.alchemy.com](https://dashboard.alchemy.com) (create an app with Base Sepolia as the network)
 5. Install dependencies:
    ```
    bun install
    ```
-6. Copy `.env.example` to `.env` and fill in the values (see the comments in the file for instructions):
-   ```
-   cp .env.example .env
-   ```
-7. Run: `bun dev`
-8. Open http://localhost:3000
+6. Run: `bun dev`
+7. Open http://localhost:3000
 
 ---
 
